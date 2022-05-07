@@ -8,7 +8,7 @@ $MyHash = get-filehash -algorithm $HashAlgorithm $FilePath | select -ExpandPrope
 write-host "Vendor hash is: $OriginalHash"
 write-host "Your hash is: $MyHash"
 
-if($OriginalHash = $MyHash) {
+if($OriginalHash -eq $MyHash) {
     Write-Host "Match" -BackgroundColor black -ForegroundColor Cyan
 } else {
     write-host "No Match" -BackgroundColor black -ForegroundColor Red
