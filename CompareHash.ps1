@@ -3,12 +3,12 @@
 $FilePath = read-host -prompt "What is the full file path?"
 $OriginalHash = read-host -prompt "What is the hash provided?"
 $HashAlgorithm = read-host -prompt "What is the hash algorithm?"
-$MyHash = get-filehash -algorithm $HashAlgorithm $FilePath | select -ExpandProperty Hash
+$MyHash = get-filehash -algorithm $HashAlgorithm $FilePath
 
 write-host "Vendor hash is: $OriginalHash"
-write-host "Your hash is: $MyHash"
+write-host "Your hash is:" $MyHash.Hash
 
-if($OriginalHash -eq $MyHash) {
+if($OriginalHash -eq $MyHash.Hash) {
     Write-Host "Match" -BackgroundColor black -ForegroundColor Cyan
 } else {
     write-host "No Match" -BackgroundColor black -ForegroundColor Red
