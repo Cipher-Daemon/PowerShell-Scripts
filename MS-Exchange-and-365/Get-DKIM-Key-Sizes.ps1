@@ -1,4 +1,4 @@
-#change identity string for commands to work
+#Must first connect with Connect-ExchangeOnline for this to work
 
 $AllDomains = Get-AcceptedDomain
 
