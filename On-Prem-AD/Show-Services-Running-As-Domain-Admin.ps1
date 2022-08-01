@@ -7,13 +7,13 @@ if ($DomainAdminAnswer -eq "Yes" -or $DomainAdminAnswer -eq "Y"){
 
 
 $ServiceList = Get-WmiObject win32_service
-$DomainRoot = (get-AdDomain).DistinguishedName
+$DomainRoot = (get-AdDomain).DNSRoot
 $DomainRootName = (get-AdDomain).Name
 foreach ($Service in $ServiceList){
     $StatusRunAs = ($Service).startname
     $ServiceName = ($Service).Name
     $ServiceFriendlyName = ($Service).displayname
-    if($StatusRunAs -eq $AdminName -or $StatusRunAs -eq "$DomainRoot\$AdminName" -or $StatusRunAs -eq "$DomainRootName\$AdminName"){
+    if($StatusRunAs -eq $AdminName -or $StatusRunAs -eq "$DomainRoot\$AdminName" -or $StatusRunAs -eq "$DomainRootName\$AdminName" -or $StatusRunAs -eq "$AdminName@$DomainRoot"){
         write-host -foregroundcolor yellow "$ServiceName ($Servicefriendlyname) service is running as domain adminnistrator!"
     }else{
 
