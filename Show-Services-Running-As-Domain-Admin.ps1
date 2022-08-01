@@ -1,4 +1,4 @@
-$DomainAdminAnswer = read-host "Does this domain use a custom Domain Admin Account (ie. not "Administrator")?"
+$DomainAdminAnswer = read-host "Does this domain use a custom Domain Admin Account (ie. not 'Administrator')?"
 if ($DomainAdminAnswer -eq "Yes" -or $DomainAdminAnswer -eq "Y"){
     $AdminName = read-host "What is the custom admin name? (DO NOT INCLUDE 'DOMAIN\'!)"
     }else{
