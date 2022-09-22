@@ -2,7 +2,20 @@
 
 $FilePath = read-host -prompt "What is the full file path?"
 $OriginalHash = read-host -prompt "What is the hash provided?"
-$HashAlgorithm = read-host -prompt "What is the hash algorithm?"
+
+if ($OriginalHash.Length -eq 32){
+    $HashAlgorithm = "md5"      
+}
+if ($OriginalHash.Length -eq 40){
+    $HashAlgorithm = "sha1"      
+}
+if ($OriginalHash.Length -eq 64){
+    $HashAlgorithm = "sha256"      
+}
+if ($OriginalHash.Length -eq 128){
+    $HashAlgorithm = "sha512"      
+}
+
 $MyHash = get-filehash -algorithm $HashAlgorithm $FilePath
 
 write-host "Vendor hash is: $OriginalHash"
@@ -13,3 +26,4 @@ if($OriginalHash -eq $MyHash.Hash) {
 } else {
     write-host "No Match" -BackgroundColor black -ForegroundColor Red
 }
+write-host "Algorithm used: $HashAlgorithm"
