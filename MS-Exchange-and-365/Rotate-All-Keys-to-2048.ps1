@@ -4,7 +4,6 @@ Foreach ($domain in $AllDomains){
     $SelKeySize1 = (get-DkimSigningConfig -identity $domain.domainname).Selector1KeySize
     $SelKeySize2 = (get-DkimSigningConfig -identity $domain.domainname).Selector2KeySize
     $RotationDate = (get-DkimSigningConfig -identity $domain.domainname).rotateondate
-    #$RotationDateUTC = $RotationDate.ToUniversalTime()
     $CurrentDate = Get-date
     if ($SelKeySize1 -eq 1024 -or $SelKeySize2 -eq 1024){
         if ($RotationDate.tostring("yyyyMMddHHMM") -le $CurrentDate.tostring("yyyyMMddHHMM")){
