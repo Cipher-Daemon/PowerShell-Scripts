@@ -14,7 +14,7 @@ Foreach ($domain in $AllDomains){
             $Days = (New-TimeSpan -start ($CurrentDate).touniversaltime() -End $RotationDate.ToUniversalTime()).days
             $Hours = (New-TimeSpan -start ($CurrentDate).touniversaltime() -End $RotationDate.ToUniversalTime()).hours
             $Minutes = (New-TimeSpan -start ($CurrentDate).touniversaltime() -End $RotationDate.ToUniversalTime()).minutes
-            write-host -ForegroundColor red "Key for $Domain not ready to be rotated yet! Please try again in $Days days $Hours hours and $Minutes Minutes."
+            write-host -ForegroundColor red "Key for $Domain not ready to be rotated yet! Please try again in $Days Days $Hours Hours and $Minutes Minutes."
         }
     }else {
         write-host -ForegroundColor magenta "$domain already has all keys rotated to 2048 bit, no changes made!"
