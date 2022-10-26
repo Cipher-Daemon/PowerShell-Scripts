@@ -8,10 +8,10 @@ $ErrorActionPreference= 'silentlycontinue'
 foreach ($Computer in $Computers){
     $Machine = (get-adcomputer -Identity $Computer -errorvariable NoComputer).DistinguishedName
     if ($NoComputer){
-        write-host -foregroundcolor red "Computer $Computer does not exits!"
+        write-host -foregroundcolor red "Computer $Computer does not exits! Skipping."
     }else{
         move-adobject -Identity $Machine -targetpath $FinalPath
-        write-host -ForegroundColor Green "Computer $computer has been moved"
+        write-host -ForegroundColor Green "Computer $computer has been moved!"
         }
     
 }
