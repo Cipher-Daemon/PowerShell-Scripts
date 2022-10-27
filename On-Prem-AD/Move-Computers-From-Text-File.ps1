@@ -1,3 +1,4 @@
+#Requires -RunAsAdministrator
 #prerequisite: you must have the OU path and Text file available ahead of time prior to writing this script
 
 $FilePath = read-host -prompt "File to read from (Include full file path)."
