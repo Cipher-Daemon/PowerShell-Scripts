@@ -1,5 +1,5 @@
 #Requires -RunAsAdministrator
-#prerequisite: you must have the OU path and Text file available ahead of time prior to writing this script
+#Prerequisite: you must have the OU path and Text file available ahead of time prior to running this script
 
 $FilePath = read-host -prompt "File to read from (Include full file path)."
 $FinalPath = Read-host -prompt "Full OU Path to move machines to (No quotes)."
