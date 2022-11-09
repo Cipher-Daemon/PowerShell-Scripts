@@ -1,3 +1,5 @@
+#Work-In-Progress
+
 $EmailGroups = Get-MsolGroup -GroupType DistributionList
 $CompanyName = read-host "What is the Company Name?"
 $Path = c:\temp\$CompanyName\$GroupName-Members.csv
