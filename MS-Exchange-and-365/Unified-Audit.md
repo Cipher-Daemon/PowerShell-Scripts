@@ -1,3 +1,7 @@
+## Prerequisite
+
+You will need the ExchangeOnline module installed to use this.
+
 ### List of usable operations for the Operations switch:
 
 https://learn.microsoft.com/en-us/microsoft-365/compliance/audit-log-activities?view=o365-worldwide#user-administration-activities
