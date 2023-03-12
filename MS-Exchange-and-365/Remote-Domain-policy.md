@@ -1,4 +1,4 @@
-# to make a new remote domain policy
+# To make a new remote domain policy
 
 ```powershell
 New-RemoteDomain -DomainName *.contoso.com -Name Contoso
