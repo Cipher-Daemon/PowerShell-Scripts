@@ -1,6 +1,8 @@
-#This script will gather All user profiles that are a shared mailbox and will display and report if Block Sign-In is blocked or not for the SharedMailbox users
+# Blocked Credential Status Report
 
+The following below will gather and dump all the status for users that are blocked and not blocked for shared mailbox users, all the reports will be saved in the C:\temp directory with the default domain name.
 
+```powershell
 $DefaultDomainName = Get-AcceptedDomain | Where-Object Default -EQ True
 $SharedMailboxes = Get-Mailbox -ResultSize Unlimited -Filter {RecipientTypeDetails -Eq "SharedMailbox"}
 new-item -path "C:\temp\" -name $DefaultDomainName -itemtype "Directory"
@@ -17,3 +19,4 @@ Foreach ($user in $SharedMailboxes){
 write-host
 write-host "All reports of users that are already blocked or not is saved in c:\temp\$DefaultDomainName Directory."
 write-host
+```
