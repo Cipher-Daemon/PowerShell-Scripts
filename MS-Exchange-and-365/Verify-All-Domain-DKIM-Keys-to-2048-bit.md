@@ -1,3 +1,8 @@
+# Verify All Domains Are Rotated To 2048 Bit DKIM Keys
+
+The following below will only show the key size status of all accepted domains in your tenant and will tell you if they are rotated to 2048 bit.
+
+```powershell
 $AllDomains = Get-AcceptedDomain
 
 Foreach ($domain in $AllDomains){
@@ -9,3 +14,4 @@ Foreach ($domain in $AllDomains){
         write-host -ForegroundColor green "$domain has all keys rotated to 2048 bit!"
     }
 }
+```
