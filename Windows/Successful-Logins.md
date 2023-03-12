@@ -38,3 +38,11 @@ Get-EventLog -LogName Security -InstanceId 4624|?{$_.replacementstrings[8] -eq 1
 $FilterUser = '*Admin*'
 Get-EventLog -LogName Security -InstanceId 4624|?{$_.replacementstrings[8] -eq 2 -and $_.replacementstrings[5] -like $FilterUser}
 ```
+#### Show Times When a User RDP Into A Workstation
+```powershell
+$Events = Get-EventLog -LogName Security -InstanceId 4624|?{$_.replacementstrings[8] -eq 3}
+
+foreach ($Event in $Events){
+write-host "On "$Event.Timegenerated" the computer "$Event.replacementstrings[6]" was signed in under the account "$Event.replacementstrings[5]" from IP "$Event.replacementstrings[18]"!"
+}
+```
