@@ -59,7 +59,7 @@ To filter the successful logins for a specific Logon ID as specified from the ta
 ```powershell
 Get-EventLog -LogName Security -InstanceId 4624|?{$_.replacementstrings[8] -eq 2}
 ```
-#### To Filter Only Remote Desktop Logins (ID 10):
+#### To Filter Only Remote Desktop/Terminal Services Logins (Results May Vary):
 ```powershell
 Get-EventLog -LogName Security -InstanceId 4624|?{$_.replacementstrings[8] -eq 10}
 ```
