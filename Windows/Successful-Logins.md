@@ -14,6 +14,36 @@ Source: https://learn.microsoft.com/en-us/windows-server/identity/securing-privi
 |9|NewCredentials|Password|Yes|RUNAS /NETWORK
 |10|RemoteInteractive|Password, Smartcard, other|Yes|Remote Desktop (Also known as "Terminal Services")|
 
+## Replacement Strings
+|Array Position|Data Type|Confirmed|
+|---|---|---|
+|0|Security ID|Yes|
+|1|Account Name|Yes|
+|2|Account Domain|Yes|
+|3|Logon ID (Subject)|Yes|
+|4|Security ID|Yes|
+|5|Account Name|Yes|
+|6|Account Domain|Yes|
+|7| Logon ID (New Logon)|Yes|
+|8|Logon Type|Yes|
+|9|Logon Process|Yes|
+|10|Authentication Package|Yes|
+|11|Workstation Name|UNKNOWN|
+|12|Logon GUID|Yes|
+|13|UNKNOWN|UNKNOWN|
+|14|Package Name (NTLM only)|Yes|
+|15|Key Length|Yes|
+|16|Process ID|Yes|
+|17|Process Name|Yes|
+|18|Source Network Address|Yes|
+|19|Source Port|Yes|
+|20|Impersonation Level|Yes|
+|21|UNKNOWN|UNKNOWN|
+|22|UNKNOWN|UNKNOWN|
+|23|UNKNOWN|UNKNOWN|
+|24|Virtual Account or Elevated Token|UNKNOWN|
+|25|Linked Logon ID|Yes
+|26|Virtual Account or Elevated Token|UNKNOWN|
 
 ## Powershell The Audit Log
 
