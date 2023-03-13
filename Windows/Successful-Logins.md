@@ -68,7 +68,7 @@ Get-EventLog -LogName Security -InstanceId 4624|?{$_.replacementstrings[8] -eq 1
 $FilterUser = '*Admin*'
 Get-EventLog -LogName Security -InstanceId 4624|?{$_.replacementstrings[8] -eq 2 -and $_.replacementstrings[5] -like $FilterUser}
 ```
-#### Show Times When a User RDP Into A Workstation
+#### Show Times When a User Signed Into A Workstation From Network
 ```powershell
 $Events = Get-EventLog -LogName Security -InstanceId 4624|?{$_.replacementstrings[8] -eq 3}
 
