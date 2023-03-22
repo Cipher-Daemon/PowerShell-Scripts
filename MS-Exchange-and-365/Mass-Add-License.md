@@ -38,7 +38,7 @@ foreach ($User in $LicensedUsers){
 }
 ```
 
-Alternatively this will work the exact same way from the previous example by selecting the license from the Get-MsolAccountSku array:
+Alternatively this will work the exact same way from the previous example by selecting the license from the Get-MsolAccountSku array (your results may vary on the position within the array):
 
 ```powershell
 $LicensedUsers = Get-MsolUser|?{$_.IsLicensed -eq $True}
@@ -49,4 +49,4 @@ foreach ($User in $LicensedUsers){
 ```
 Depending on how many users you have it can take time to assign users that specific license.
 
-Also note that if they have any previous license assigned to, it'll still keep those since all we are doing is adding a license(s).
+Also note that other licenses will not be removed since all we are doing is adding a license(s).
