@@ -9,7 +9,7 @@ Connect-MsolService
 
 
 
-## Getting the Liense Name
+## Getting the License Name
 
 To get the SKU/License name for your powershell script run the following command to get all the license in your tenant:
 ```powershell
