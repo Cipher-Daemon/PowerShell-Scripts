@@ -1,7 +1,7 @@
 # Mass Add License In Office/Microsoft 365
 
 ## Prerequisite
-- For this command to work you must have the MSOnline module installed
+- For this command to work you must have the MSOnline module installed.
 - You must also connect your 365 tenant for this to work with command:
 ```powershell
 Connect-MsolService
@@ -35,6 +35,16 @@ $LicensedUsers = Get-MsolUser|?{$_.IsLicensed -eq $True}
 
 foreach ($User in $LicensedUsers){
     Set-MsolUserLicense -UserPrincipalName $User.UserPrincipalName -AddLicenses "MyDomain:AAD_PREMIUM"
+}
+```
+
+Alternatively this will work the exact same way from the previous example by selecting the license from the Get-MsolAccountSku array:
+
+```powershell
+$LicensedUsers = Get-MsolUser|?{$_.IsLicensed -eq $True}
+$License = (Get-MsolAccountSku).AccountSkuId[0]
+foreach ($User in $LicensedUsers){
+    Set-MsolUserLicense -UserPrincipalName $User.UserPrincipalName -AddLicenses $License
 }
 ```
 Depending on how many users you have it can take time to assign users that specific license.
