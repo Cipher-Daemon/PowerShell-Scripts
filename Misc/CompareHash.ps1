@@ -6,7 +6,7 @@ $FilePath = read-host -prompt "What is the full file path?"
 $FilePath = $FilePath.Trim([char]0x0022)
 $TestPath = Test-Path -Path $FilePath
 if ($TestPath -eq $False){
-    Write-host -ForegroundColor red "PATH TO FILE EITHER DOES NOT EXIST OR IS INVALID, PLEASE TRY AGAIN!"
+    Write-host -ForegroundColor red "PATH TO FILE IS EITHER INVALID OR IT DOES NOT EXIST, PLEASE TRY AGAIN!"
     }
 }
 
