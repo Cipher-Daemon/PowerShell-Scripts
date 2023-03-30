@@ -2,15 +2,19 @@
 
 $FilePath = read-host -prompt "What is the full file path?"
 $FilePath = $FilePath.Trim([char]0x0022)
+
+$i = 0
+while ($i -ne 1){
 $OriginalHash = read-host -prompt "What is the hash provided?"
 $OriginalHash = $OriginalHash.Trim()
 
 switch ($OriginalHash.length){
-    32 {$HashAlgorithm = "md5"}
-    40 {$HashAlgorithm = "sha1"}
-    64 {$HashAlgorithm = "sha256"}
-    128 {$HashAlgorithm = "sha512"}
-    default {Write-host -ForegroundColor red "NOT A VALID HASH! EXITING!";exit}
+    32 {$HashAlgorithm = "md5";$i = 1}
+    40 {$HashAlgorithm = "sha1";$i = 1}
+    64 {$HashAlgorithm = "sha256";$i = 1}
+    128 {$HashAlgorithm = "sha512";$i = 1}
+    default {Write-host -ForegroundColor red "NOT A VALID HASH! PLEASE TRY AGAIN!"}
+    }
 }
 
 $MyHash = get-filehash -algorithm $HashAlgorithm $FilePath
