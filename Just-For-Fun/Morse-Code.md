@@ -1,4 +1,4 @@
-# morse Code Powershell Script
+# Morse Code Powershell Script
 
 ```powershell
 function dot{
