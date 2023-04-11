@@ -45,3 +45,30 @@ if ($NoServers.count -eq 0){
 $data|sort runas,server
 
 ```
+
+# For Standalone script to run on a single server
+
+```powershell
+$data = @()
+$ErrorActionPreference= 'silentlycontinue'
+
+    $Tasks = Get-ScheduledTask 
+    foreach ($Task in $Tasks){
+        if ($task.Principal.UserId -ne $Null -and $task.Principal.UserId -ne "SYSTEM" -and $task.Principal.UserId -ne "NETWORK SERVICE" -and $task.Principal.UserId -ne "LOCAL SERVICE"){
+            $taskPath = $task.TaskPath
+            $taskname = $task.taskname
+            $runAs = $task.Principal.UserId
+            $Row = "" | Select TaskPath,TaskName,RunAs,Server
+            $Row.TaskPath = $taskPath
+            $Row.TaskName = $taskname
+            $Row.RunAs = $Runas
+            $Row.Server = $Server
+            $Data += $Row
+            }else{
+
+        }
+    }
+
+
+$data|sort runas,server
+```
