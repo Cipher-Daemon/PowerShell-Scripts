@@ -58,11 +58,10 @@ $ErrorActionPreference= 'silentlycontinue'
             $taskPath = $task.TaskPath
             $taskname = $task.taskname
             $runAs = $task.Principal.UserId
-            $Row = "" | Select TaskPath,TaskName,RunAs,Server
+            $Row = "" | Select TaskPath,TaskName,RunAs
             $Row.TaskPath = $taskPath
             $Row.TaskName = $taskname
             $Row.RunAs = $Runas
-            $Row.Server = $Server
             $Data += $Row
             }else{
 
@@ -70,5 +69,5 @@ $ErrorActionPreference= 'silentlycontinue'
     }
 
 
-$data|sort runas,server
+$data|sort runas
 ```
