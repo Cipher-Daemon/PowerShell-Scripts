@@ -1,4 +1,4 @@
-# Get all scheduled task not running as default users Version 2
+# Get all scheduled task not running as default users for all Domain Servers Version 2
 
 ```powershell
 
