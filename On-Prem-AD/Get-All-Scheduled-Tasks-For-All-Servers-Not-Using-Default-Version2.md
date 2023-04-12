@@ -8,6 +8,7 @@ $ErrorActionPreference= 'silentlycontinue'
 $ActiveServers = Get-ADComputer -Filter {OperatingSystem -like "*Server*"} -Properties LastLogonDate |Where-Object {($_.LastLogonDate -gt (Get-Date).AddDays(-30))}
 $ActiveServers = $ActiveServers.name
 foreach ($Server in $ActiveServers){
+    $Tasks = $Null
     $Tasks = Get-ScheduledTask -cimsession $Server -ErrorVariable ServerError
     if ($serverError){
         write-host -ForegroundColor Red "Server error, needs to run on $Server manually!"
