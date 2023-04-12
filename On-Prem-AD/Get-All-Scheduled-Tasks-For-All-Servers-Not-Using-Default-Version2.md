@@ -33,11 +33,13 @@ foreach ($Server in $ActiveServers){
     }
 }
 
+$Servercount = $NoServers.count
+
 if ($NoServers.count -eq 0){
     write-host -ForegroundColor Cyan "No Servers returned any errors!"
     Start-Sleep -Seconds 3
     }else{
-    write-host -ForegroundColor Red "$NoServers.count Servers were not able to run this PS command remotely, need to run them on the servers themselves:"
+    write-host -ForegroundColor Red "$Servercount Servers were not able to run this PS command remotely, need to run them on the servers themselves:"
     write-host ""
     write-host "$NoServers"
     write-host ""
@@ -45,7 +47,7 @@ if ($NoServers.count -eq 0){
     read-host
     }
 
-$data|sort runas,server|ft
+$data|out-gridview
 
 ```
 
@@ -74,5 +76,5 @@ $ErrorActionPreference= 'silentlycontinue'
     }
 
 
-$data|sort runas
+$data|out-gridview
 ```
