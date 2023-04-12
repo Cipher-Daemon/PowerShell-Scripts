@@ -18,11 +18,13 @@ foreach ($Server in $ActiveServers){
             $taskPath = $task.TaskPath
             $taskname = $task.taskname
             $runAs = $task.Principal.UserId
-            $Row = "" | Select TaskPath,TaskName,RunAs,Server
+            $TaskType = $Task.Principal.LogonType
+            $Row = "" | Select TaskPath,TaskName,RunAs,Server,type
             $Row.TaskPath = $taskPath
             $Row.TaskName = $taskname
             $Row.RunAs = $Runas
             $Row.Server = $Server
+            $Row.type = $TaskType
             $Data += $Row
             }else{
 
@@ -42,7 +44,7 @@ if ($NoServers.count -eq 0){
     read-host
     }
 
-$data|sort runas,server
+$data|sort runas,server|ft
 
 ```
 
@@ -58,10 +60,12 @@ $ErrorActionPreference= 'silentlycontinue'
             $taskPath = $task.TaskPath
             $taskname = $task.taskname
             $runAs = $task.Principal.UserId
-            $Row = "" | Select TaskPath,TaskName,RunAs
+            $TaskType = $Task.Principal.LogonType
+            $Row = "" | Select TaskPath,TaskName,RunAs,Type
             $Row.TaskPath = $taskPath
             $Row.TaskName = $taskname
             $Row.RunAs = $Runas
+            $Row.type = $TaskType
             $Data += $Row
             }else{
 
