@@ -20,5 +20,10 @@ foreach ($user in $users){
 ```
 
 ### LastLogon vs LastLogonTimeStamp
-- LastLogon means the timestamp for the user logged on happened on the domain controller it authenticated with. its generally more accurate compared to LastLogonTimestamp
-- LastLogonTimeStamp is the least accurate and it only gets the information that was gathered via replication from other DC(s) that it authenticated with, generally its less accurate
+#### LastLogon 
+- Data is not replicated between domain controllers, meaning the data is recorded against the server itself when the user logs on
+- Generally more accurate
+
+#### LastLogonTimeStamp 
+- Logon times are replicated to/from other domain controllers
+- Generally less accurate
