@@ -20,12 +20,14 @@ foreach ($Server in $ActiveServers){
             $taskname = $task.taskname
             $runAs = $task.Principal.UserId
             $TaskType = $Task.Principal.LogonType
-            $Row = "" | Select TaskPath,TaskName,RunAs,Server,type
+            $TaskState = $Task.State
+            $Row = "" | Select TaskPath,TaskName,RunAs,Server,Type,State
             $Row.TaskPath = $taskPath
             $Row.TaskName = $taskname
             $Row.RunAs = $Runas
             $Row.Server = $Server
             $Row.type = $TaskType
+            $Row.State = $TaskState
             $Data += $Row
             }else{
 
@@ -43,7 +45,7 @@ if ($NoServers.count -eq 0){
     write-host ""
     write-host "$NoServers"
     write-host ""
-    write-host "Press the enter key to contunue..."
+    write-host "Press the enter key to continue..."
     read-host
     }
 
@@ -64,17 +66,22 @@ $ErrorActionPreference= 'silentlycontinue'
             $taskname = $task.taskname
             $runAs = $task.Principal.UserId
             $TaskType = $Task.Principal.LogonType
-            $Row = "" | Select TaskPath,TaskName,RunAs,Type
+            $TaskState = $Task.State
+            $Row = "" | Select TaskPath,TaskName,RunAs,Type,State
             $Row.TaskPath = $taskPath
             $Row.TaskName = $taskname
             $Row.RunAs = $Runas
             $Row.type = $TaskType
+            $Row.State = $TaskState
             $Data += $Row
             }else{
 
         }
     }
 
-
-$data|out-gridview
+if ($Data.count -eq $Null -or $Data.count -eq 0){
+    write-host -foregroundcolor cyan "All Scheduled Tasks are running as SYSTEM, NETWORK SERVICE, LOCAL SERVICE, or NULL. No further action required!"
+    }else{
+    $data|out-gridview
+    }
 ```
