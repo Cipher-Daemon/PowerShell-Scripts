@@ -19,6 +19,29 @@ foreach ($user in $users){
 }
 ```
 
+# For Out-GridView
+```powershell
+$users = @()
+while ($input = read-host "Username?"){
+    if($input -eq "" -or $input -eq $null) {break}
+    $users += $input
+}
+
+$Data = @()
+
+foreach ($user in $users){
+   $Prop =  Get-ADUser -Identity $User -Properties * #| Select Name, @{Name='LastLogon';Expression={[DateTime]::FromFileTime($_.LastLogon)}},@{Name='lastLogonTimestamp';Expression={[DateTime]::FromFileTime($_.lastLogonTimestamp)}}
+   $Row = "" | Select Name,Lastlogon,Lastlogontimestamp
+   $Row.Name = $prop.name
+   $Row.LastLogon = [DateTime]::FromFileTime($Prop.LastLogon)
+   $Row.lastlogontimestamp = [DateTime]::FromFileTime($Prop.lastLogonTimestamp)
+   $Data += $Row
+
+}
+
+$data|out-gridview
+```
+
 ### LastLogon vs LastLogonTimeStamp
 #### LastLogon 
 - Data is not replicated between domain controllers, meaning the data is recorded against the server itself when the user logs on
