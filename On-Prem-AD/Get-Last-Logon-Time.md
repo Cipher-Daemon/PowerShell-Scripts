@@ -30,7 +30,7 @@ while ($input = read-host "Username?"){
 $Data = @()
 
 foreach ($user in $users){
-   $Prop =  Get-ADUser -Identity $User -Properties * #| Select Name, @{Name='LastLogon';Expression={[DateTime]::FromFileTime($_.LastLogon)}},@{Name='lastLogonTimestamp';Expression={[DateTime]::FromFileTime($_.lastLogonTimestamp)}}
+   $Prop =  Get-ADUser -Identity $User -Properties *
    $Row = "" | Select Name,Lastlogon,Lastlogontimestamp
    $Row.Name = $prop.name
    $Row.LastLogon = [DateTime]::FromFileTime($Prop.LastLogon)
