@@ -45,7 +45,9 @@ Source: https://learn.microsoft.com/en-us/windows-server/identity/securing-privi
 |25|Linked Logon ID|
 |26|Elevated Token|
 
-## Powershell The Audit Log
+# Powershell The Audit Log
+
+## Get-EventLog
 
 The Event ID for successful logins is 4624 in the security log, to get all the successful logins you use the following:
 
@@ -75,4 +77,14 @@ $Events = Get-EventLog -LogName Security -InstanceId 4624|?{$_.replacementstring
 foreach ($Event in $Events){
 write-host "On "$Event.Timegenerated" the computer "$Event.replacementstrings[6]" was signed in under the account "$Event.replacementstrings[5]" from IP "$Event.replacementstrings[18]"!"
 }
+```
+
+## Get-WinEvent
+
+### Examples
+
+#### To Filter Interactive Logins and For The Account "Admin"
+
+```powershell
+Get-WinEvent -LogName Security -FilterXPath "*[System[EventID=4624] and EventData[Data[@Name='LogonType']='2' and Data[@Name='TargetUserName']='admin']]"
 ```
