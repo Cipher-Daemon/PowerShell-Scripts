@@ -95,15 +95,9 @@ $NetworkEvents = @()
 
 $Events = Get-WinEvent -LogName Security -FilterXPath "*[System[EventID=4624] and EventData[Data[@Name='LogonType']='3' and Data[@Name='TargetUserName']='administrator']]"
 
-foreach ($Event in $Events){
-    switch ($event.properties.value[8]){
-        3 {$NetworkEvents += $Event}
-        default {}
-        }
-    }
 
 $IPs = @()
-foreach ($Netevent in $NetworkEvents){
+foreach ($Netevent in $Events){
     $IPs += $Netevent.properties[18].value
 }
 
