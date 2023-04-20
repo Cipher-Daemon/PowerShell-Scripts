@@ -88,3 +88,24 @@ write-host "On "$Event.Timegenerated" the computer "$Event.replacementstrings[6]
 ```powershell
 Get-WinEvent -LogName Security -FilterXPath "*[System[EventID=4624] and EventData[Data[@Name='LogonType']='2' and Data[@Name='TargetUserName']='admin']]"
 ```
+#### To Get A List Of IP Addresses It Was Able To Authenticate Successfully From Against The Administrator Account
+
+```powershell
+$NetworkEvents = @()
+
+$Events = Get-WinEvent -FilterHashtable @{LogName='Security'; ID=4624}| Where-Object { $_.Properties[5].value -eq "Administrator" }
+
+foreach ($Event in $Events){
+    switch ($event.properties.value[8]){
+        3 {$NetworkEvents += $Event}
+        default {}
+        }
+    }
+
+$IPs = @()
+foreach ($Netevent in $NetworkEvents){
+    $IPs += $Netevent.properties[18].value
+}
+
+$IPs|group|select name,count|sort count -Descending
+```
