@@ -93,7 +93,7 @@ Get-WinEvent -LogName Security -FilterXPath "*[System[EventID=4624] and EventDat
 ```powershell
 $NetworkEvents = @()
 
-$Events = Get-WinEvent -FilterHashtable @{LogName='Security'; ID=4624}| Where-Object { $_.Properties[5].value -eq "Administrator" }
+$Events = Get-WinEvent -LogName Security -FilterXPath "*[System[EventID=4624] and EventData[Data[@Name='LogonType']='3' and Data[@Name='TargetUserName']='administrator']]"
 
 foreach ($Event in $Events){
     switch ($event.properties.value[8]){
