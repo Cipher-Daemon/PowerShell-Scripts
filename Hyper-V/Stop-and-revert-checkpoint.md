@@ -39,3 +39,4 @@ Putting it all together
 ```powershell
 stop-vm -name "RDP-workstation" -TurnOff;Restore-VMSnapshot -name 'No-Software' -VMName "RDP-Workstation" -Confirm:$false;start-vm -name "RDP-workstation"
 ```
+What this does is it first turns off the machine, applies the snapshot on the machine that we specify without confirmation it just does it Thanks to the -confirm$False switch), after that is done it'll turn the machine back on
