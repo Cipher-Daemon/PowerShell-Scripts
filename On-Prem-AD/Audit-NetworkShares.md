@@ -28,6 +28,7 @@ $SMBAccess = foreach ($NetworkShare in $NetworkShares){get-smbshareAccess -CimSe
 foreach ($SMBShare in $SMBAccess){
     $ReportLine = [PSCustomObject] @{
     Computername = $Server
+    Type = (get-smbshare -CimSession $Server -name $SMBShare.name).ShareType 
     ShareName = $SMBShare.name
     LocalPath = (get-smbshare -CimSession $Server -name $SMBShare.name).path
     AccountorGroup = $SMBShare.AccountName
@@ -74,6 +75,7 @@ $SMBAccess = foreach ($NetworkShare in $NetworkShares){get-smbshareAccess -name 
 foreach ($SMBShare in $SMBAccess){
     $ReportLine = [PSCustomObject] @{
     Computername = $ComputerName
+    Type = (get-smbshare -name $SMBShare.name).ShareType 
     ShareName = $SMBShare.name
     LocalPath = (get-smbshare -name $SMBShare.name).path
     AccountorGroup = $SMBShare.AccountName
