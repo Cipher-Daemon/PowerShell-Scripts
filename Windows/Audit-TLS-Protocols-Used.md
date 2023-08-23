@@ -83,8 +83,8 @@ If you have a lot of CSV files do this to combine them all
 
 ```powershell
 $CSV = Get-ChildItem *.csv
-$File = read-host -prompt "Path to save files to?"
+
 foreach ($File in $CSV) {
-    import-csv $File.name|Export-Csv -Path $File -Append -NoTypeInformation
+    import-csv $File.name|Export-Csv -Path .\_All.csv -Append -NoTypeInformation
 }
 ```
