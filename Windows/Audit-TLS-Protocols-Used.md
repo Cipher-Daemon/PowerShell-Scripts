@@ -73,6 +73,11 @@ if($UNCPathTest -eq "True"){
     write-host "Error: path not found!"
 }
 ```
+Move files in nested directories to one location
+
+```powershell
+get-childitem -Recurse *.csv|?{Move-Item -Path $_.fullname -Destination .\All\}
+```
 
 If you have a lot of CSV files do this to combine them all
 
