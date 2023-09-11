@@ -90,11 +90,26 @@ foreach ($File in $CSV) {
 ```
 
 
-All One Sweep
+All One Sweep - Move
 
 ```powershell
 mkdir .\All
 get-childitem -Recurse *.csv|?{Move-Item -Path $_.fullname -Destination .\All\}
+cd .\All
+
+
+$CSV = Get-ChildItem *.csv
+
+foreach ($File in $CSV) {
+    import-csv $File.name|Export-Csv -Path .\_All.csv -Append -NoTypeInformation
+}
+```
+
+All One Sweep - Copy
+
+```powershell
+mkdir .\All
+get-childitem -Recurse *.csv|?{Copy-Item -Path $_.fullname -Destination .\All\}
 cd .\All
 
 
