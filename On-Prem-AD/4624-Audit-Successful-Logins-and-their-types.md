@@ -57,7 +57,6 @@ foreach ($Event in $Events){
     $Data += $Row
 }
 
-$DomainAdmins = get-adgroupmember -Identity 'domain admins'
 
 foreach ($admins in $DomainAdmins){
     $AdminEvents = $Data|?{$_.TargetUserName -contains $Admins -and $_.AuthenticationPackageName -eq "NTLM"}
