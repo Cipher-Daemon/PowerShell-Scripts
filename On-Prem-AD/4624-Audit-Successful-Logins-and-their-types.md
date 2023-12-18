@@ -124,6 +124,7 @@ foreach ($admins in $DomainAdmins){
 ```
 ## Filter only domain admins
 
+Note: Not sure why but the variable $XPathConditions can only do up to 19 user accounts at a time so keep that in mind if your organization has more than that many domain admin accounts.
 ```powershell
 $data = @()
 $DomainAdmins = (Get-ADGroupMember -Recursive -Identity "Domain Admins").samaccountname
