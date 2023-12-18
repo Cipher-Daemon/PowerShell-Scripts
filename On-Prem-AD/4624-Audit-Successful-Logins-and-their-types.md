@@ -122,3 +122,51 @@ foreach ($admins in $DomainAdmins){
     }
 }
 ```
+## Filter only domain admins
+
+```powershell
+$data = @()
+$DomainAdmins = (Get-ADGroupMember -Recursive -Identity "Domain Admins").samaccountname
+
+$XPathConditions = $DomainAdmins | ForEach-Object {
+    "Data[@Name='TargetUserName']='{0}'" -f $_
+}
+$XPathConditionsString = $XPathConditions -join " or "
+
+$FilterXPath = "*[System[Provider[@Name='Microsoft-Windows-Security-Auditing'] and (EventID=4624)] and EventData[Data[@Name='AuthenticationPackageName']='NTLM' and ($XPathConditionsString)]]"
+
+$Events = Get-WinEvent -LogName Security -FilterXPath $FilterXPath
+
+
+
+foreach ($Event in $Events){
+    $info = $Null
+    $SubjectUserName = ($Event|select -ExpandProperty properties)[1]
+    $TargetUserName = ($Event|select -ExpandProperty properties)[5]
+    $LogonType = ($Event|select -ExpandProperty properties)[8]
+    $LogonProcessName = ($Event|select -ExpandProperty properties)[9]
+    $AuthenticationPackageName = ($Event|select -ExpandProperty properties)[10]
+    $WorkstationName = ($Event|select -ExpandProperty properties)[11]
+    $IPAddress = ($Event|select -ExpandProperty properties)[18]
+    $Row = ''|select SubjectUserName,TargetUserName,LogonType,LogonProcessName,AuthenticationPackageName,WorkstationName,IPAddress
+    $Row.SubjectUserName = $SubjectUserName.Value
+    $Row.TargetUserName = $TargetUserName.value
+    $Row.LogonType = $LogonType.value
+    $Row.LogonProcessName = $LogonProcessName.value
+    $Row.AuthenticationPackageName = $AuthenticationPackageName.value
+    $Row.WorkstationName = $WorkstationName.value
+    $Row.IPAddress = $IPAddress.value
+    $Data += $Row
+}
+
+
+foreach ($admins in $DomainAdmins){
+    $AdminEvents = $Data|?{$_.TargetUserName -contains $Admins}
+    $AdminEventsCount = $AdminEvents.count
+    if($AdminEventsCount -eq 0){
+    write-host -foregroundcolor cyan "Account $Admins was using NTLM $AdminEventsCount Times!"
+    }else{
+        write-host -foregroundcolor yellow "Account $Admins was using NTLM $AdminEventsCount Times!"
+    }
+}
+```
