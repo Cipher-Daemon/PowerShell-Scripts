@@ -171,3 +171,8 @@ foreach ($admins in $DomainAdmins){
     }
 }
 ```
+You could also add this to the bottom of the script to see what device is using which account:
+
+```powershell
+$Data|group TargetUsername,WorkstationName,IPAddress|Select name, count
+```
