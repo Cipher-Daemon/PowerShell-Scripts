@@ -176,3 +176,66 @@ You could also add this to the bottom of the script to see what device is using 
 ```powershell
 $Data|group TargetUsername,WorkstationName,IPAddress|Select name, count
 ```
+
+## For specific time (Example 2 hours)
+
+```powershell
+$endTime = Get-Date
+$startTime = $endTime.AddHours(-2)
+
+# Format the start and end times in the required format for XPath
+$startTimeFormatted = $startTime.ToString("yyyy-MM-ddTHH:mm:ss")
+$endTimeFormatted = $endTime.ToString("yyyy-MM-ddTHH:mm:ss")
+
+$data = @()
+$DomainAdmins = (Get-ADGroupMember -Recursive -Identity "Domain Admins").samaccountname
+
+$XPathConditions = $DomainAdmins | ForEach-Object {
+    "Data[@Name='TargetUserName']='{0}'" -f $_
+}
+$XPathConditionsString = $XPathConditions -join " or "
+
+$FilterXPath = "
+*[System[Provider[@Name='Microsoft-Windows-Security-Auditing']
+ and (EventID=4624)] 
+ and EventData[Data[@Name='AuthenticationPackageName']='NTLM' 
+ and ($XPathConditionsString)]
+ and System[TimeCreated[@SystemTime >= '$startTimeFormatted' and @SystemTime <= '$endTimeFormatted']]
+ ]"
+
+
+$Events = Get-WinEvent -LogName Security -FilterXPath $FilterXPath
+
+
+
+foreach ($Event in $Events){
+    $info = $Null
+    $SubjectUserName = ($Event|select -ExpandProperty properties)[1]
+    $TargetUserName = ($Event|select -ExpandProperty properties)[5]
+    $LogonType = ($Event|select -ExpandProperty properties)[8]
+    $LogonProcessName = ($Event|select -ExpandProperty properties)[9]
+    $AuthenticationPackageName = ($Event|select -ExpandProperty properties)[10]
+    $WorkstationName = ($Event|select -ExpandProperty properties)[11]
+    $IPAddress = ($Event|select -ExpandProperty properties)[18]
+    $Row = ''|select SubjectUserName,TargetUserName,LogonType,LogonProcessName,AuthenticationPackageName,WorkstationName,IPAddress
+    $Row.SubjectUserName = $SubjectUserName.Value
+    $Row.TargetUserName = $TargetUserName.value
+    $Row.LogonType = $LogonType.value
+    $Row.LogonProcessName = $LogonProcessName.value
+    $Row.AuthenticationPackageName = $AuthenticationPackageName.value
+    $Row.WorkstationName = $WorkstationName.value
+    $Row.IPAddress = $IPAddress.value
+    $Data += $Row
+}
+
+
+foreach ($admins in $DomainAdmins){
+    $AdminEvents = $Data|?{$_.TargetUserName -contains $Admins}
+    $AdminEventsCount = $AdminEvents.count
+    if($AdminEventsCount -eq 0){
+    write-host -foregroundcolor cyan "Account $Admins was using NTLM $AdminEventsCount Times!"
+    }else{
+        write-host -foregroundcolor yellow "Account $Admins was using NTLM $AdminEventsCount Times!"
+    }
+}
+```
