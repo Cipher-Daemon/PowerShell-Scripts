@@ -36,3 +36,26 @@ foreach ($Event in $Events){
 write-host "On"$Event.timegenerated"the user account"$Event.replacementstrings[0]"was locked from"$Event.replacementstrings[1]"!"
 }
 ```
+
+#### Get-Winevent
+
+```powershell
+$Data = @()
+
+$Events = Get-WinEvent -FilterHashtable @{LogName = 'Security';id = '4740'}
+
+
+foreach ($Event in $Events){
+    $info = $Null
+    $Time = ($Event.TimeCreated).ToString("yyyy-MM-dd--HH:mm:ss")
+    $Account = (($Event|select -ExpandProperty properties).value)[0]
+    $Machine = (($Event|select -ExpandProperty properties).value)[1]
+    $Row = ''|select Time,Account,Machine
+    $Row.Time = $Time
+    $Row.Account = $Account
+    $Row.Machine = $Machine
+    $Data += $Row
+}
+
+$Data
+```
