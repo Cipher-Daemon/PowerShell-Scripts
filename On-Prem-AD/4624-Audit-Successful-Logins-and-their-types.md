@@ -183,7 +183,7 @@ $MaxAdmin = 18
 $data = @()
 $DomainAdmins = (Get-ADGroupMember -Recursive -Identity "Domain Admins").samaccountname
 
-$MaxRounds = [math]::Ceiling($DomainAdmins.count/19) + 1
+$MaxRounds = [math]::Ceiling($DomainAdmins.count/19)
 
 while ($Round -le $MaxRounds){
 
