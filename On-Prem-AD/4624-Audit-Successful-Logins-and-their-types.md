@@ -177,7 +177,7 @@ To get around the 19 admins limit
 ```powershell
 cls
 $ErrorActionPreference = "SilentlyContinue"
-$Round = 2
+$Round = 1
 $MinAdmin = 0
 $MaxAdmin = 18
 $data = @()
@@ -195,6 +195,7 @@ while ($Round -le $MaxRounds){
 
     $FilterXPath = "*[System[Provider[@Name='Microsoft-Windows-Security-Auditing'] and (EventID=4624)] and EventData[Data[@Name='AuthenticationPackageName']!='NTLM' and ($XPathConditionsString)]]"
 
+    $Events = @()
     $Events = Get-WinEvent -LogName Security -FilterXPath $FilterXPath
 
 
