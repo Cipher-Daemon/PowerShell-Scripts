@@ -193,7 +193,7 @@ while ($Round -le $MaxRounds){
     $XPathConditionsString = @()
     $XPathConditionsString = $XPathConditions -join " or "
 
-    $FilterXPath = "*[System[Provider[@Name='Microsoft-Windows-Security-Auditing'] and (EventID=4624)] and EventData[Data[@Name='AuthenticationPackageName']!='NTLM' and ($XPathConditionsString)]]"
+    $FilterXPath = "*[System[Provider[@Name='Microsoft-Windows-Security-Auditing'] and (EventID=4624)] and EventData[Data[@Name='AuthenticationPackageName']='NTLM' and ($XPathConditionsString)]]"
 
     $Events = @()
     $Events = Get-WinEvent -LogName Security -FilterXPath $FilterXPath
