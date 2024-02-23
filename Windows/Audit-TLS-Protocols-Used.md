@@ -508,3 +508,8 @@ foreach ($event in $TLSEvents){
 $TLSReport.Add($ReportLine)
 }
 ```
+### To show only server type events
+
+```powershell
+$TLSreport|?{$_.type -eq "Server"}|Group Ciphersuite,resource|select name,count
+```
