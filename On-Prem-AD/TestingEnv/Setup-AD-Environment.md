@@ -41,5 +41,5 @@ install-windowsfeature DNS -IncludeManagementTools
 
 
 Install-WindowsFeature AD-Domain-Services -IncludeManagementTools
-Install-ADDSForest -DomainName $DomainName -DomainNetBiosName $DomainNetBiosName -InstallDns:$true -NoRebootOnCompletion:$true -SafeModeAdministratorPassword $Secure_String_Pwd -confirm
+Install-ADDSForest -DomainName $DomainName -DomainNetBiosName $DomainNetBiosName -InstallDns:$true -NoRebootOnCompletion:$true -SafeModeAdministratorPassword $Secure_String_Pwd -force
 ```
