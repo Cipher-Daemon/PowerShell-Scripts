@@ -14,7 +14,7 @@ $NETALIAS = (Get-NetIPInterface|Where-Object {$_.ifindex -eq $NETIFINDEX -and $_
 
 $IPADDR = "10.69.69.1"
 $SUBNET = "24"
-$DEFGATEWAY = "10.69.69.254
+$DEFGATEWAY = "10.69.69.254"
 $DNSSERVER = "127.0.0.1"
 
 New-NetIPAddress -InterfaceAlias $NETALIAS -IPAddress $IPADDR -AddressFamily IPv4 -DefaultGateway $DEFGATEWAY -PrefixLength $SUBNET
