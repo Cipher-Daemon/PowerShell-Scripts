@@ -1,7 +1,7 @@
 # For Modern Windows
 
 ```powershell
-$TLSEvents = (Get-EventLog -LogName System -InstanceId 36880)
+$TLSEvents = (Get-EventLog -LogName System -InstanceId 36880|?{$_.ReplacementStrings[0] -eq "Server"})
 $TimeOfLog = get-date -format yyyy-MM-dd
 #$CSVShare = "CUSTOM_LOCATION\-TLS-LOGS.CSV"
 $Computername = hostname
@@ -408,7 +408,7 @@ foreach ($VAR in $TESTVAR){
 ```powershell
 # For legacy Windows systems that dont support creating list via [System.Collections.Generic.List[Object]]::new()
 
-$TLSEvents = (Get-EventLog -LogName System -InstanceId 36880)
+$TLSEvents = (Get-EventLog -LogName System -InstanceId 36880|?{$_.ReplacementStrings[0] -eq "Server"})
 $Computername = hostname
 
 $TLSReport = @()
