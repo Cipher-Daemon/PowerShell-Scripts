@@ -10,13 +10,16 @@ $MYCHAR_ARRAY=$MYTEXT.ToCharArray()
 Foreach ($CHAR in $MYCHAR_ARRAY) {
 $TEX_HEX = $TEX_HEX + ' ' + [System.String]::Format("{0:X2}", [System.Convert]::ToUInt32($CHAR))
 }
-$TEX_HEX -replace " ",""|clip
+$TEX_HEX = $TEX_HEX.trim()
+
+$TEX_HEX
 ```
 
 ## From HEX
 
 ```powershell
-$MYHEX=$TEX_HEX
+$MYTEXT = $NULL
+$MYHEX= read-host "HEX?"
 $MYHEX_ARRAY=$MYHEX.Split("")
 Foreach ($HEX in $MYHEX_ARRAY) {
 $MYTEXT= $MYTEXT +  [char]([convert]::toint16($HEX,16))
