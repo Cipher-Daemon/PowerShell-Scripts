@@ -13,6 +13,7 @@ $TEX_HEX = $TEX_HEX + ' ' + [System.String]::Format("{0:X2}", [System.Convert]::
 $TEX_HEX = $TEX_HEX.trim()
 
 $TEX_HEX
+$TEX_HEX|set-clipboard
 ```
 
 ## From HEX
