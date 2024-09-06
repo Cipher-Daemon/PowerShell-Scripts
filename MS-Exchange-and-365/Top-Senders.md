@@ -14,7 +14,7 @@ Connect-ExchangeOnline
 [int]$Days = 0
 $Report = @()
 
-while ($days -ne -13){
+while ($days -ne -14){
 $Day = (get-date).adddays($Days).ToString('yyyy-MM-dd')
 $TopSenders = (Get-MailTrafficSummaryReport -Category TopMailSender -StartDate (get-date).adddays($Days) -EndDate (get-date).adddays($Days)|select C1,C2)
     foreach ($TopSender in $TopSenders){
