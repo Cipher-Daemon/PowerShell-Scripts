@@ -17,7 +17,7 @@ $VMName = read-host -prompt "VMName?";new-vm -name $VMName -MemoryStartupBytes 8
 # Optional
 
 ```powershell
-#Get-VMNetworkAdapter -vmname $VMName|Connect-VMNetworkAdapter -SwitchName Isolated-Network
+Get-VMNetworkAdapter -vmname $VMName|Connect-VMNetworkAdapter -SwitchName Isolated-Network
 ```
 
 # VM-Snapshot
