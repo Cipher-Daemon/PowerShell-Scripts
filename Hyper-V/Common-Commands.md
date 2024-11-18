@@ -61,7 +61,7 @@ Add-VMDvdDrive -VMName $VMName -ControllerNumber 1 -ControllerLocation 0 -Path $
 To add/attach DVD Drive
 
 ```powershell
-Set-VMDvdDrive -VMName FreeNAS-11.2-U5 -Path $InstallMedia
+Set-VMDvdDrive -VMName $VMName -Path $InstallMedia
 ```
 
 To detatch/unmount ISO File 
