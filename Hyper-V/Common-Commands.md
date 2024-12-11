@@ -74,3 +74,10 @@ To detatch/unmount ISO File
 ```powershell
 Get-VMDvdDrive -VMName $VMName | Set-VMDvdDrive -Path $null
 ```
+## VHD
+
+To set VHDX file to minimum size
+
+```powershell
+Resize-VHD -Path c:\BaseVHDX.vhdx -ToMinimumSize
+```
