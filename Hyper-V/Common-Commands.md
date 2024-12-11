@@ -48,12 +48,12 @@ set-vm -Name [VM-NAME] -CheckpointType Standard
 Check snapshot:
 
 ```powershell
-Get-VMCheckpoint -VMName [VM-NAME]
+Get-VMsnapshot -VMName [VM-NAME]
 ```
 Delete checkpoint/snapshot
 
 ```powershell
-Remove-VMCheckpoint -VMName [VM-NAME] -Name [CHECKPOINT-NAME]
+Remove-VMsnapshot -VMName [VM-NAME] -Name [CHECKPOINT-NAME]
 ```
 
 ## DVD Drive
