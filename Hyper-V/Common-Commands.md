@@ -81,3 +81,9 @@ To set VHDX file to minimum size
 ```powershell
 Resize-VHD -Path c:\BaseVHDX.vhdx -ToMinimumSize
 ```
+
+Reclaim zero bytes of free space
+
+```powershell
+Optimize-VHD -Path c:\test\dynamic.vhdx -Mode Full
+```
