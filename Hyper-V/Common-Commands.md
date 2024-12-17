@@ -87,3 +87,13 @@ Reclaim zero bytes of free space
 ```powershell
 Optimize-VHD -Path c:\test\dynamic.vhdx -Mode Full
 ```
+
+Reclaim all disk in an array (Note: VM's must be turned off)
+
+```powershell
+$Disks = (get-childitem -Recurse -Path C:\Hyper-v\Disk\|?{$_.Extension -eq ".vhdx"}).fullname
+
+foreach ($Disk in $Disks){
+Optimize-VHD -Path $disk -Mode Full
+}
+```
