@@ -1,5 +1,13 @@
 # 4688 - Elevated Processes
 
+## Prerequisite
+
+Must run the following command
+
+```cmd
+auditpol.exe /set /subcategory:"Process Creation" /failure:enable /success:enable
+```
+
 ```powershell
 $XMLFilter = "*[System[Provider[@Name='Microsoft-Windows-Security-Auditing'] and (EventID=4688)] and EventData[Data[@Name='TokenElevationType']='%%1937']]"
 
