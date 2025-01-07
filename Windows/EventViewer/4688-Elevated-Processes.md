@@ -74,12 +74,14 @@ $data = @()
 
 foreach ($Event in $Events){
     $Time = ($Event.TimeCreated).ToString("yyyy/MM/dd HH:MM:ss")
+    $ComputerName = hostname
     $User = (($Event|select -ExpandProperty properties)[1]).value
     $SubjectDomain = (($Event|select -ExpandProperty properties)[2]).value
     $Process = (($Event|select -ExpandProperty properties)[5]).value
     $ParentProcess = (($Event|select -ExpandProperty properties)[13]).value
-    $Row = ''|Select Time,SubjectDomain,User,Process,ParentProcess
+    $Row = ''|Select Time,ComputerName,SubjectDomain,User,Process,ParentProcess
     $Row.Time = $Time
+    $Row.ComputerName = $Computername
     $Row.SubjectDomain = $SubjectDomain
     $Row.User = $User
     $Row.Process = $Process
