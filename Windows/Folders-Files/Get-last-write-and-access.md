@@ -1,4 +1,5 @@
 ```powershell
+cls
 $Baseline = (get-date -year 2023 -month 11 -day 14 -hour 00 -Minute 00 -Second 00)
 $ErrorActionPreference = 'SilentlyContinue'
 $DesktopPath = Join-Path $env:USERPROFILE "Desktop"
