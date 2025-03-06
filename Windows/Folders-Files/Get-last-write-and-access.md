@@ -1,5 +1,6 @@
 ```powershell
 cls
+#Change the baseline time below to best fit your needs.
 $Baseline = (get-date -year 2023 -month 11 -day 14 -hour 00 -Minute 00 -Second 00)
 $ErrorActionPreference = 'SilentlyContinue'
 $DesktopPath = Join-Path $env:USERPROFILE "Desktop"
