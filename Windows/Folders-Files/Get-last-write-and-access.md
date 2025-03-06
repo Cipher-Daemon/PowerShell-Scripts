@@ -1,6 +1,7 @@
 ```powershell
 $Baseline = (get-date -year 2023 -month 11 -day 14 -hour 00 -Minute 00 -Second 00)
 $ErrorActionPreference = 'SilentlyContinue'
+$DesktopPath = Join-Path $env:USERPROFILE "Desktop"
 
 while ($True){
     $DirectoryToScan = read-host "Path to scan?"
@@ -20,8 +21,8 @@ while ($True){
 }
 
 
-$ExportPath = read-host "Path to save the export (PLEASE INCLIDE CORRECT PATH AND .CSV AT THE END!)"
-$ExportPath = $ExportPath.Trim([char]0x0022)
+$ExportPath = read-host "CSV File name (This will save to the Desktop)"
+$ExportPath = join-path $DesktopPath $ExportPath
 
 
 $AllItems = get-childitem -Recurse $DirectoryToScan |?{$_.lastwritetime -ge $Baseline -or $_.LastAccessTime -ge $Baseline}
