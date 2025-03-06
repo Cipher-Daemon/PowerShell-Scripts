@@ -2,6 +2,7 @@
 $Baseline = (get-date -year 2023 -month 11 -day 14 -hour 00 -Minute 00 -Second 00)
 $ErrorActionPreference = 'SilentlyContinue'
 $DesktopPath = Join-Path $env:USERPROFILE "Desktop"
+$ScanTime ='ScanResult-' + (get-date).ToString("yyyy-MM-dd_hh-MM_tt")
 
 while ($True){
     $DirectoryToScan = read-host "Path to scan?"
@@ -21,7 +22,7 @@ while ($True){
 }
 
 
-$ExportPath = read-host "CSV File name (This will save to the Desktop)"
+$ExportPath = $ScanTime + '.csv'
 $ExportPath = join-path $DesktopPath $ExportPath
 
 
