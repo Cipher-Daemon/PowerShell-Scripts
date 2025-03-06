@@ -1,5 +1,6 @@
 ```powershell
 $Baseline = (get-date -year 2023 -month 11 -day 14 -hour 00 -Minute 00 -Second 00)
+$ErrorActionPreference = 'SilentlyContinue'
 
 while ($True){
     $DirectoryToScan = read-host "Path to scan?"
@@ -61,5 +62,5 @@ if (Test-Path $ExportPath){
    }else{
     Write-Host -ForegroundColor Red "Something went wrong while validating the exported CSV file path, either it failed to validate or it does not exist!"
 }
-
+$ErrorActionPreference = 'Continue'
 ```
