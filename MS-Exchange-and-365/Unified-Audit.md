@@ -52,3 +52,12 @@ For ($i=0; $i -le $intDays; $i++){
 }
 
 ```
+To get a list of EXE and MSI files shared for the past 30 days
+
+```powershell
+$RetriveOperation="SharingSet"
+
+$result = Search-UnifiedAuditLog -StartDate ((get-date).adddays(-30)) -EndDate (get-date).AddDays(1) -Operations $RetriveOperation -ResultSize 5000
+
+$result|select-object -ExpandProperty Auditdata|ConvertFrom-Json|select userid, objectid|?{$_.objectid -like "*.exe" -or $_.objectid -like "*.msi"}
+```
