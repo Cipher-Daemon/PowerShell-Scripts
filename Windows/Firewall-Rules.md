@@ -52,6 +52,7 @@ $Data = @()
 [int]$Rulecount = $($Rules.count)
 [int]$ProcressCount = 1
 
+# This logic checks if the InstanceID is a GUID String, reason is that it appears if a rule is created not part of the installation it assigns it as a GUID string.
 function InstanceIDRegEx{
     $($Rule.InstanceID) -match '\{[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}\}'
 }
