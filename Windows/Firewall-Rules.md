@@ -61,6 +61,7 @@ foreach ($Rule in $Rules){
     $ActualPercentage = ($ProcressCount/$Rulecount)*100
     Write-Progress -Activity "Generating Report" -Status "$ActualPercentage Percent Complete" -PercentComplete $ActualPercentage
     InstanceIDRegEx
+    $CustomRule = $False
 
     if (InstanceIDRegEx){
         $CustomRule = $True
