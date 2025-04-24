@@ -1,8 +1,12 @@
 ```powershell
-$Rules = Get-NetFirewallRule
+#$Rules = Get-NetFirewallRule
 $Data = @()
+[int]$Rulecount = $($Rules.count)
+[int]$ProcressCount = 1
 foreach ($Rule in $Rules){
     $InstanceID = $($Rule.InstanceID)
+    $ActualPercentage = ($ProcressCount/$Rulecount)*100
+    Write-Progress -Activity "Generating Report" -Status "$ActualPercentage Percent Complete" -PercentComplete $ActualPercentage
 
     $Enabled = $($Rule.Enabled)
     $RuleName = $($Rule.DisplayName)
@@ -29,6 +33,7 @@ foreach ($Rule in $Rules){
     $Row.RemotePort = $RemotePort
 
     $Data += $Row
+    $ProcressCount++
     
 }
 
