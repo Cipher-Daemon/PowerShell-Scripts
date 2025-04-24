@@ -51,10 +51,20 @@ $RulesFWAddress = Get-NetFirewallAddressFilter
 $Data = @()
 [int]$Rulecount = $($Rules.count)
 [int]$ProcressCount = 1
+
+function InstanceIDRegEx{
+    $($Rule.InstanceID) -match '\{[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}\}'
+}
+
 foreach ($Rule in $Rules){
     $InstanceID = $($Rule.InstanceID)
     $ActualPercentage = ($ProcressCount/$Rulecount)*100
     Write-Progress -Activity "Generating Report" -Status "$ActualPercentage Percent Complete" -PercentComplete $ActualPercentage
+    InstanceIDRegEx
+
+    if (InstanceIDRegEx){
+        $CustomRule = $True
+    }
 
     $Enabled = $($Rule.Enabled)
     $RuleName = $($Rule.DisplayName)
@@ -68,7 +78,8 @@ foreach ($Rule in $Rules){
     $RemoteHost = ($RulesFWAddress|? InstanceID -eq $InstanceID).remoteaddress
     $RemotePort = ($RulesFWPort|? InstanceID -eq $InstanceID).remoteport
     $ICMPType = ($RulesFWPort|? InstanceID -eq $InstanceID).icmptype
-    $Row = ''|Select Enabled,Direction,RuleName,Action,Profile,Protocol,ICMPType,Application,LocalHost,LocalPort,RemoteHost,RemotePort
+    $Row = ''|Select CustomRule,Enabled,Direction,RuleName,Action,Profile,Protocol,ICMPType,Application,LocalHost,LocalPort,RemoteHost,RemotePort
+    $Row.CustomRule = $CustomRule
     $Row.Enabled = $Enabled 
     $Row.Direction = $Direction
     $Row.RuleName = $RuleName
