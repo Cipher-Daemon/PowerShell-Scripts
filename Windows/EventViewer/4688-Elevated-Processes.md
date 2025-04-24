@@ -98,3 +98,38 @@ if ($NoEvents){
     GetData
     }
 ```
+
+```powershell
+$endTime = (Get-Date).ToUniversalTime()
+$startTime = ((Get-Date).addhours(-2)).ToUniversalTime()
+
+# Format the start and end times in the required format for XPath
+$startTimeFormatted = $startTime.ToString("yyyy-MM-ddTHH:mm:ss")
+$endTimeFormatted = $endTime.ToString("yyyy-MM-ddTHH:mm:ss")
+
+
+$XMLFilter = "*[System[Provider[@Name='Microsoft-Windows-Security-Auditing'] and (EventID=4688)] and System[TimeCreated[@SystemTime >= '$startTimeFormatted' and @SystemTime <= '$endTimeFormatted']]]"
+
+$Events = Get-WinEvent -LogName Security -FilterXPath $XMLFilter
+
+$data = @()
+[int]$IndexID = 0
+
+foreach ($Event in $Events){
+    $Time = ($Event.TimeCreated).ToString("yyyy/MM/dd HH:mm:ss")
+    $User = (($Event|select -ExpandProperty properties)[1]).value
+    $Process = (($Event|select -ExpandProperty properties)[5]).value
+    $ParentProcess = (($Event|select -ExpandProperty properties)[13]).value
+    $Row = ''|Select Index,Time,User,Process,ParentProcess
+    $Row.index = $IndexID
+    $Row.Time = $Time
+    $Row.User = $User
+    $Row.Process = $Process
+    $Row.ParentProcess = $ParentProcess
+    $Data += $Row
+
+    $IndexID++
+}
+
+$Data|Out-GridView
+```
