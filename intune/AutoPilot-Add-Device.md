@@ -25,3 +25,9 @@ $Post =  Invoke-RestMethod -Method POST -Uri "https://$MSGraphHost/$MsGraphVersi
 # To check the status
 Invoke-RestMethod -Method Get -Uri "https://$MsGraphHost/$MsGraphVersion/Devicemanagement/importedwindowsautopilotdeviceidentities/$($Post.ID)" -Headers @{Authorization = "Bearer $AccessToken"} | Select-Object -ExpandProperty State
 ```
+
+For the above script to work you must have a Application under App Registration in Entra
+1. Create an Application
+2. Grant ONLY this permission called `DeviceManagementServiceConfig.ReadWrite.All`
+3. Grant Admin permission
+4. create and save the app secret somewhere safe
