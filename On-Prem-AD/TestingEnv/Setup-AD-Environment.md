@@ -38,6 +38,7 @@ Add-DhcpServerv4Scope -Name "Lab Network" -StartRange 10.69.69.10 -EndRange 10.6
 
 
 install-windowsfeature DNS -IncludeManagementTools
+Set-DhcpServerv4OptionValue -DnsServer 10.69.69.1 -DnsDomain $DomainName -scopeid 10.69.69.0
 
 
 Install-WindowsFeature AD-Domain-Services -IncludeManagementTools
