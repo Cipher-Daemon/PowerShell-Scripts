@@ -2,9 +2,9 @@
 
 ```powershell
 #Run the command below to get the adapter ID
-#Get-NetIPInterface|Where-Object {$_.AddressFamily -eq "IPv4" -and $_.Dhcp -eq "Enabled"}|select ifindex, interfacealias|Sort-Object -Property ifindex
+[int]$InterfaceIndex = Get-NetIPInterface|Where-Object {$_.AddressFamily -eq "IPv4" -and $_.Dhcp -eq "Enabled"}|select ifindex, interfacealias|Sort-Object -Property ifindex|select -ExpandProperty ifindex
 
-#$NETIFINDEX = "CHANGE-ME"
+$NETIFINDEX = $InterfaceIndex
 
 $DomainName = read-host "Domain Name?"
 $DomainNetBiosName = read-host "NetBios Domain Name?"
