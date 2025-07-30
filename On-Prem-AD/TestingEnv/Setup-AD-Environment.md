@@ -43,4 +43,5 @@ Set-DhcpServerv4OptionValue -DnsServer 10.69.69.1 -DnsDomain $DomainName -scopei
 
 Install-WindowsFeature AD-Domain-Services -IncludeManagementTools
 Install-ADDSForest -DomainName $DomainName -DomainNetBiosName $DomainNetBiosName -InstallDns:$true -NoRebootOnCompletion:$true -SafeModeAdministratorPassword $Secure_String_Pwd -force
+shutdown /f /r /t 10
 ```
