@@ -1,5 +1,8 @@
 # Quick way
 
+> [!NOTE]
+> This will work if the Windows server has **ONE** adapter!
+
 ```powershell
 #Run the command below to get the adapter ID
 [int]$InterfaceIndex = Get-NetIPInterface|Where-Object {$_.AddressFamily -eq "IPv4" -and $_.Dhcp -eq "Enabled"}|select ifindex, interfacealias|Sort-Object -Property ifindex|select -ExpandProperty ifindex
