@@ -106,7 +106,7 @@ write-host -ForegroundColor cyan "Creating CA Policy"
         }
         }
 
-        New-MgIdentityConditionalAccessPolicy -BodyParameter $params -ResponseHeadersVariable
+        New-MgIdentityConditionalAccessPolicy -BodyParameter $params 
 
 
 
