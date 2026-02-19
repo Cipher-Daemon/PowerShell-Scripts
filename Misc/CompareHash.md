@@ -19,7 +19,7 @@ if ($TestPath -eq $False){
 $i = 0
 $HashRegEx = $null
 while (($i -ne 1) -or ($HashRegEx -ne $True)){
-$OriginalHash = read-host -prompt "What is the hash provided? (Supported Algorithms: MD5, SHA1, SHA256, SAH512)"
+$OriginalHash = read-host -prompt "What is the hash provided? (Supported Algorithms: MD5, SHA1, SHA256, SHA512)"
 $OriginalHash = $OriginalHash.Trim()
 
 switch ($OriginalHash.length){
