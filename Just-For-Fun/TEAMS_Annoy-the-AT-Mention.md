@@ -16,3 +16,6 @@ Start-Sleep -Milliseconds $MilliSeconds
 write-host -ForegroundColor Red $i
 }
 ```
+## Other functions
+
+Control V (Paste) - `[System.Windows.Forms.SendKeys]::SendWait('^v')`
