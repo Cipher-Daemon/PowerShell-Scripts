@@ -50,11 +50,13 @@ Add-Type -AssemblyName System.Windows.Forms
 $windowTitle = read-host "App Window Name? (Must be the EXACT Title Name!)"   # EXACT title
 $hWnd = $Win32API::FindWindow([NullString]::Value, $windowTitle)
 
+[int]$MaxLoops = read-host "How many times you want to loop this?"
+
 if ($hWnd -ne [IntPtr]::Zero) {
     [WinAPI]::SetForegroundWindow($hWnd)
     Start-Sleep -Milliseconds 500
 
-    for ($i=0; $i -lt 1; $i++) {
+    for ($i=1; $i -le $MaxLoops; $i++) {
         [System.Windows.Forms.SendKeys]::SendWait('@')
         Start-Sleep -Milliseconds 100
         [System.Windows.Forms.SendKeys]::SendWait('t')
