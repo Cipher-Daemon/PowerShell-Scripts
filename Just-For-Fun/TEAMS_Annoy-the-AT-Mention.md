@@ -3,7 +3,7 @@ How to annoy the living nerves of your coworkers, replace/add the letters to you
 ```powershell
 start-sleep -Seconds 5
 Add-Type -AssemblyName System.Windows.Forms
-[int]$MilliSeconds = 100
+[int]$MilliSeconds = 250 #250 seems to be the magic number, dont do less than 100.
 for ($i=0;$i -le 8;$i++){
 
 [System.Windows.Forms.SendKeys]::SendWait('@')
