@@ -1,4 +1,5 @@
 ```powershell
+cls
 $FolderPath = Read-host "File Path Location: "
 $FolderPath = $FolderPath.Trim([char]0x0022)
 
@@ -6,6 +7,7 @@ $AllFiles = get-childitem -Path $FolderPath|?{$_.Extension -eq ".txt"}
 
 $Appendlist = $Null
 [int]$i = 1
+[int]$x = 0
 
 foreach ($File in $AllFiles){
     cls
@@ -25,6 +27,26 @@ foreach ($File in $AllFiles){
 
 }
 
+cls
 
+write-host -ForegroundColor Yellow "Saving results to clipboard."
+start-sleep -Seconds 3
 $Appendlist|clip
+
+
+$Appendlist = $Appendlist -split "`r?`n" |ForEach-Object { $_.Trim() } |Where-Object { $_ }|sort
+
+$newdir = Join-Path -Path $FolderPath -ChildPath "ToCheck"
+mkdir $newdir
+
+write-host -ForegroundColor Yellow "Creating $Newdir to copy results to."
+
+
+foreach ($File in $Appendlist){
+    write-host -ForegroundColor green "Copying $File"
+    $FullFilePath = Join-Path -Path $FolderPath -ChildPath $File
+    Copy-Item -Path $FullFilePath -Destination $newdir
+
+
+}
 ```
