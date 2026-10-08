@@ -20,7 +20,7 @@ foreach ($File in $AllFiles){
     switch ($Response){
         y {write-host -ForegroundColor Magenta "Saving Result";start-sleep -Seconds 1;$Appendlist += "$($File.name)`n";$i++}
         yes {write-host -ForegroundColor Magenta "Saving Result";start-sleep -Seconds 1;$Appendlist += "$($File.name)`n";$i++}
-        default {$i++}
+        default {write-host -ForegroundColor Yellow "Not Saving Result!";start-sleep -Seconds 1;$i++}
     }
 
 }
