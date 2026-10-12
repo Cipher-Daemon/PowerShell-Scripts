@@ -1,6 +1,6 @@
 # S1 Firewall Logs
 
-```poowershell
+```powershell
 cls
 
 [int]$Minutes = read-host "How many Minutes do you want to go back?"
