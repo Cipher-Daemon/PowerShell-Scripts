@@ -8,6 +8,7 @@ $AllFiles = get-childitem -Path $FolderPath|?{$_.Extension -eq ".txt"}
 $Appendlist = $Null
 [int]$i = 1
 [int]$x = 0
+[int]$Saved = 0
 
 foreach ($File in $AllFiles){
     cls
@@ -17,13 +18,16 @@ foreach ($File in $AllFiles){
     $Percentage = [math]::Round(($i / $Total) * 100,2)
 
     write-host -ForegroundColor Cyan "Save $($File.name) name to Append List? ($i out of $Total remaining.) $Percentage % Complete."
+    write-host -ForegroundColor Green "$Saved item(s) selected."
     $Response = read-host "Yes or No? "
 
     switch ($Response){
-        y {write-host -ForegroundColor Magenta "Saving Result";start-sleep -Seconds 1;$Appendlist += "$($File.name)`n";$i++}
-        yes {write-host -ForegroundColor Magenta "Saving Result";start-sleep -Seconds 1;$Appendlist += "$($File.name)`n";$i++}
+        y {write-host -ForegroundColor Magenta "Saving Result";start-sleep -Seconds 1;$Appendlist += "$($File.name)`n";$i++;$Saved++}
+        yes {write-host -ForegroundColor Magenta "Saving Result";start-sleep -Seconds 1;$Appendlist += "$($File.name)`n";$i++;$Saved++}
+        quitnow {return}
         default {write-host -ForegroundColor Yellow "Not Saving Result!";start-sleep -Seconds 1;$i++}
     }
+    
 
 }
 
