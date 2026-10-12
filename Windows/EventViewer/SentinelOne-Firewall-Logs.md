@@ -8,9 +8,14 @@
 ```powershell
 cls
 
-[int]$Minutes = read-host "How many Minutes do you want to go back?"
+[int]$Minutes = read-host "How many Minutes do you want to go back? (Default 15 minutes if blank)"
 
-$Milliseconds = $Minutes * 60 * 1000
+if ($Minutes -eq 0){
+    $Minutes = 15
+    $Milliseconds = $Minutes * 60 * 1000
+    }else{
+        $Milliseconds = $Minutes * 60 * 1000
+    }
 
 $S1FirewallEvent = get-winevent -LogName "SentinelOne/Firewall" -FilterXPath "*[System[TimeCreated[timediff(@SystemTime) <= $Milliseconds]]]" -ErrorAction SilentlyContinue
 
@@ -62,9 +67,14 @@ if ($S1FirewallEvent.Count -eq 0){
 ```powershell
 cls
 
-[int]$Minutes = read-host "How many Minutes do you want to go back?"
+[int]$Minutes = read-host "How many Minutes do you want to go back? (Default 15 minutes if blank)"
 
-$Milliseconds = $Minutes * 60 * 1000
+if ($Minutes -eq 0){
+    $Minutes = 15
+    $Milliseconds = $Minutes * 60 * 1000
+    }else{
+        $Milliseconds = $Minutes * 60 * 1000
+    }
 
 $S1FirewallEvent = get-winevent -LogName "SentinelOne/Firewall" -FilterXPath "*[System[TimeCreated[timediff(@SystemTime) <= $Milliseconds]]]" -ErrorAction SilentlyContinue
 
