@@ -28,7 +28,7 @@ function GetS1Logs {
         }
 
         $ReportLine = [PSCustomObject] @{
-            Time = ($Event.TimeCreated).ToString("yyyy/MM/dd HH:MM:ss")
+            Time = ($Event.TimeCreated).ToString("yyyy/MM/dd HH:mm:ss")
             Protocol = $ProtocolValue
             Direction = (($Event|select -ExpandProperty properties)[4]).value
             RemoteAddress = (($Event|select -ExpandProperty properties)[0]).value
