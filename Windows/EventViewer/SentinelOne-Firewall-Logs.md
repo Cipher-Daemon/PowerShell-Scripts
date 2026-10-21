@@ -46,6 +46,7 @@ function GetS1Logs {
             FQDN = (($Event|select -ExpandProperty properties)[7]).value
             LocalAddress = (($Event|select -ExpandProperty properties)[10]).value
             LocalPort = (($Event|select -ExpandProperty properties)[11]).value
+            RuleName = (($Event|select -ExpandProperty properties)[9]).value
         
             }
         $Data.Add($ReportLine)
@@ -104,7 +105,8 @@ function GetS1Logs {
             $FQDN = (($Event|select -ExpandProperty properties)[7]).value
             $LocalAddress = (($Event|select -ExpandProperty properties)[10]).value
             $LocalPort = (($Event|select -ExpandProperty properties)[11]).value
-            $Row = ''|select Time,Protocol,Direction,RemoteAddress,RemotePort,FQDN,LocalAddress,LocalPort
+            $RuleName = (($Event|select -ExpandProperty properties)[9]).value
+            $Row = ''|select Time,Protocol,Direction,RemoteAddress,RemotePort,FQDN,LocalAddress,LocalPort,RuleName
             $Row.Time = $Time
             $Row.Protocol = $Protocol
             $Row.Direction = $Direction
@@ -113,6 +115,7 @@ function GetS1Logs {
             $Row.FQDN = $FQDN
             $Row.LocalAddress = $LocalAddress
             $Row.LocalPort = $LocalPort
+            $Row.RuleName = $RuleName
         
          
         $Data += $Row
