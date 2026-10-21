@@ -28,7 +28,7 @@ function GetS1Logs {
 
         $ProtocolValue = $Null
 
-        Switch ((($Event|select -ExpandProperty properties)[12]).value){
+        Switch ($Event.Properties[12].Value){
             #If more needs to be added, refer to the protocol list at https://www.iana.org/assignments/protocol-numbers
             6 {$ProtocolValue = 'TCP'}
             17 {$ProtocolValue = 'UDP'}
@@ -38,15 +38,15 @@ function GetS1Logs {
         }
 
         $ReportLine = [PSCustomObject] @{
-            Time = ($Event.TimeCreated).ToString("yyyy/MM/dd HH:mm:ss")
+            Time = [datetime]$Event.TimeCreated
             Protocol = $ProtocolValue
-            Direction = (($Event|select -ExpandProperty properties)[4]).value
-            RemoteAddress = (($Event|select -ExpandProperty properties)[0]).value
-            RemotePort = (($Event|select -ExpandProperty properties)[1]).value
-            FQDN = (($Event|select -ExpandProperty properties)[7]).value
-            LocalAddress = (($Event|select -ExpandProperty properties)[10]).value
-            LocalPort = (($Event|select -ExpandProperty properties)[11]).value
-            RuleName = (($Event|select -ExpandProperty properties)[9]).value
+            Direction = $Event.Properties[4].Value
+            RemoteAddress = $Event.Properties[0].Value
+            RemotePort = $Event.Properties[1].Value
+            FQDN = $Event.Properties[7].Value
+            LocalAddress = $Event.Properties[10].Value
+            LocalPort = $Event.Properties[11].Value
+            RuleName = $Event.Properties[9].Value
         
             }
         $Data.Add($ReportLine)
