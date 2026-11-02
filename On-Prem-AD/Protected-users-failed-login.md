@@ -1,3 +1,9 @@
+To enable
+
+```powershell
+wevtutil sl "Microsoft-Windows-Authentication/ProtectedUserFailures-DomainController" /e:true
+```
+To get logs
 ```powershell
 $data = @()
 $Events = Get-WinEvent -FilterHashtable @{LogName = 'Microsoft-Windows-Authentication/ProtectedUserFailures-DomainController';id = '100'}
