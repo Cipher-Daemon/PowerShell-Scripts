@@ -6,7 +6,7 @@
 function Print-ProcessTree() {
 
     function Get-ProcessAndChildProcesses($Level, $Process) {
-        "{0}[{1,-5}] [{2}]" -f ("  " * $Level), $Process.ProcessId, $Process.Name
+        "{0}[{1,-5}] [{2}]`n{0}  Path: {3}`n{0}  Cmd : {4}" -f ("  " * $Level), $Process.ProcessId, $Process.Name, $Process.ExecutablePath, $Process.CommandLine
         $Children = $AllProcesses | where-object {$_.ParentProcessId -eq $Process.ProcessId -and $_.CreationDate -ge $Process.CreationDate}
         if ($null -ne $Children) {
             foreach ($Child in $Children) {
@@ -26,10 +26,11 @@ function Print-ProcessTree() {
         }
     }
     # Process the "System Idle process" separately
-    "[{0,-5}] [{1}]" -f $AllProcesses[0].ProcessId, $AllProcesses[0].Name
+    "[{0,-5}] [{1}]`n  Path: {2}`n  Cmd : {3}" -f $AllProcesses[0].ProcessId, $AllProcesses[0].Name, $AllProcesses[0].ExecutablePath,$AllProcesses[0].CommandLine
     foreach ($Process in $RootProcesses) {
         Get-ProcessAndChildProcesses 0 $Process
     }
 }
+
 
 ```
