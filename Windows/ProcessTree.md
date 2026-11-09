@@ -34,3 +34,40 @@ function Print-ProcessTree() {
 
 
 ```
+
+# JSON PRETTY
+
+```powershell
+# Retrieve processes with parent IDs using CIM
+$procs = Get-CimInstance -ClassName Win32_Process | Select-Object ProcessId, ParentProcessId, Name, ExecutablePath,commandline
+
+# Build a lookup hash table
+$processMap = @{}
+$rootProcesses = [System.Collections.Generic.List[object]]::new()
+
+foreach ($p in $procs) {
+    $processMap[$p.ProcessId] = [pscustomobject]@{
+        Id         = $p.ProcessId
+        ParentId   = $p.ParentProcessId
+        Name       = $p.Name
+        Path       = $p.ExecutablePath
+        CommandLine = $p.CommandLine
+        Children   = [System.Collections.Generic.List[object]]::new()
+    }
+}
+
+# Assemble the tree
+foreach ($p in $processMap.Values) {
+    if ($p.ParentId -and $processMap.ContainsKey($p.ParentId)) {
+        $processMap[$p.ParentId].Children.Add($p)
+    } else {
+        $rootProcesses.Add($p)
+    }
+}
+
+# Convert the tree structure to JSON
+$jsonOutput = $rootProcesses | ConvertTo-Json -Depth 10
+$jsonOutput | Out-File -FilePath "C:\users\administrator\desktop\process-tree.json" -Encoding utf8
+Write-Output $jsonOutput
+
+```
