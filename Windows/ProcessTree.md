@@ -66,7 +66,7 @@ foreach ($p in $processMap.Values) {
 }
 
 # Convert the tree structure to JSON
-$jsonOutput = $rootProcesses | ConvertTo-Json -Depth 10
+$jsonOutput = $rootProcesses | ConvertTo-Json -Depth 100
 $jsonOutput | Out-File -FilePath "C:\users\administrator\desktop\process-tree.json" -Encoding utf8
 Write-Output $jsonOutput
 
