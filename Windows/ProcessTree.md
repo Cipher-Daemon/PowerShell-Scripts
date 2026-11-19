@@ -37,6 +37,7 @@ function Print-ProcessTree() {
 
 # JSON PRETTY
 
+## Usual Stuff
 ```powershell
 # Retrieve processes with parent IDs using CIM
 $procs = Get-CimInstance -ClassName Win32_Process | Select-Object ProcessId, ParentProcessId, Name, ExecutablePath,commandline
@@ -68,6 +69,56 @@ foreach ($p in $processMap.Values) {
 # Convert the tree structure to JSON
 $jsonOutput = $rootProcesses | ConvertTo-Json -Depth 100
 $jsonOutput | Out-File -FilePath "C:\users\administrator\desktop\process-tree.json" -Encoding utf8
+Write-Output $jsonOutput
+
+```
+
+
+## With PID Owner
+
+```powershell
+# Retrieve processes with parent IDs using CIM
+$procs = Get-CimInstance -ClassName Win32_Process 
+
+# Build a lookup hash table
+$processMap = @{}
+$rootProcesses = [System.Collections.Generic.List[object]]::new()
+
+foreach ($p in $procs) {
+
+    $ownerInfo = Invoke-CimMethod -InputObject $p -MethodName GetOwner -ErrorAction SilentlyContinue
+
+    $owner = if ($ownerInfo.ReturnValue -eq 0) {
+        "$($ownerInfo.Domain)\$($ownerInfo.User)"
+    }
+    else {
+        "SYSTEM/UNKNOWN"
+    }
+
+
+    $processMap[$p.ProcessId] = [pscustomobject]@{
+        Id         = $p.ProcessId
+        ParentId   = $p.ParentProcessId
+        Name       = $p.Name
+        Path       = $p.ExecutablePath
+        CommandLine = $p.CommandLine
+        Owner       = $owner
+        Children   = [System.Collections.Generic.List[object]]::new()
+    }
+}
+
+# Assemble the tree
+foreach ($p in $processMap.Values) {
+    if ($p.ParentId -and $processMap.ContainsKey($p.ParentId)) {
+        $processMap[$p.ParentId].Children.Add($p)
+    } else {
+        $rootProcesses.Add($p)
+    }
+}
+
+# Convert the tree structure to JSON
+$jsonOutput = $rootProcesses | ConvertTo-Json -Depth 100
+$jsonOutput | Out-File -FilePath "C:\temp\mt-mthornton-process-tree.json" -Encoding utf8
 Write-Output $jsonOutput
 
 ```
